@@ -1,0 +1,52 @@
+<button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 absolute bottom-8 right-8" type="button">
+    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h9M5 9h5m8-8H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4l3.5 4 3.5-4h5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+    </svg>
+  </button>
+    
+    
+  <div id="defaultModal" tabindex="-1" aria-hidden="false" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hiddenoverflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="sm:absolute right-8 lg:w-[40%] w-full max-w-sm max-h-fulll">
+          
+          <div class="relative bg-white w-[100%] rounded-xl shadow dark:bg-gray-700 overflow-hidden h-[90vh]">
+
+              <!-- Chat Bot header -->
+              <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600 bg-blue-700 h-[13%]">
+                  <h3 class="text-xl font-semibold text-white dark:text-white">
+                      Chat-Help
+                  </h3>
+                  <button type="button" class="text-white bg-transparent over:bg-blue-900  hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                    <svg class="w-3 h-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+              </div>
+              
+
+
+              <!-- Chat Bot body -->
+              <div class="px-6 pt-6 space-y-6 h-[74%] my-auto overflow-y-scroll flex flex-col">
+                <div class="flex justify-start">
+                  <p class="py-2 px-3 bg-blue-600 text-white rounded-xl max-w-[80%] text-sm">{{initialMessage}}</p>
+                </div>
+                <div *ngFor="let message of messages; let i = index" class="m-0">
+                  <app-user-message class="flex justify-end mb-4"  [message]="message"></app-user-message>
+                  <app-replies class="flex justify-start" id="{{i}}" [message]="message"></app-replies>
+                </div>
+                <div class="h-0" #endOfChat></div>
+              </div>
+
+
+              <!-- Chat Bot input -->
+              <div class="flex self-end items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 h-[13%]">
+                  <input type="text" id="inputComp" class="w-full mx-2 rounded-full" required #inputComp [(ngModel)] = 'text' (keydown.enter)="submitResponce(inputComp.value)">
+                  <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-2.5 py-2.5 text-center dark:bg-blue-600dark:hover:bg-blue-700 dark:focus:ring-blue-800" ngClass="{'disabled': inputComp.value == ''}"  (click)="submitResponce(inputComp.value)">
+                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"fill="currentColor" viewBox="0 0 10 16">
+                      <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
+                    </svg>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
