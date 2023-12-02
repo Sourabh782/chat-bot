@@ -9,5 +9,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './replies.component.css'
 })
 export class RepliesComponent {
+
   @Input() message:string = "";
+
+  isHidden: boolean = true;
+
+  setHidden = ()=>{
+    setTimeout(() => {
+      this.isHidden = false;
+    }, 520);
+  }  
+
+  constructor(){
+    this.setHidden();
+  }
 }

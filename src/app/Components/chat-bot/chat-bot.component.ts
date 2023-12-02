@@ -20,9 +20,9 @@ export class ChatBotComponent {
   id: number = 0;
 
   initialMessage: string = `Hey! How can we help you? 😄
-   Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
-   We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
-   Cheers! `
+    Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
+    We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
+    Cheers! `
 
   messages: Array<string> = [];
 
@@ -41,6 +41,11 @@ export class ChatBotComponent {
       if(this.endOfChat){
         this.endOfChat.nativeElement.scrollIntoView({behaviour: "smooth"});
       }
-    }, 100);
+    }, 50);
+    setTimeout(()=>{
+      if(this.endOfChat){
+        this.endOfChat.nativeElement.scrollIntoView({behaviour: "smooth"});
+      }
+    }, 530);
   }
 }
