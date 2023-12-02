@@ -1,4 +1,6 @@
-<svg class="w-[36px] h-[36px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3" [ngClass]="{'hidden': !isHidden}">
-    <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-</svg>
+<!-- animations -->
+<div class="animation h-[36px]" [ngClass]="{'hidden': !isHidden}">
+    <app-loading-animation></app-loading-animation> <p>hello world</p>
+</div>
+
 <p class="py-2 px-3 bg-blue-600 text-white rounded-xl text-sm max-w-[80%] overflow-wrap" [ngClass]="{'hidden': isHidden}">{{message}}</p>

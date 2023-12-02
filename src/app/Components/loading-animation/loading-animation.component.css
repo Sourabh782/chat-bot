@@ -1,0 +1,21 @@
+.loader_bar{
+    animation: scale-up 750ms var(--d) linear infinite;
+}
+
+.loader_bar:nth-child(even){
+    height: 12px;
+}
+
+.loader_bar:nth-child(odd){
+    height: 20px;
+}
+
+@keyframes scale-up {
+    25% {
+        opacity: 1;
+        scale: 1.5;
+    }
+    50% {
+        scale: 1;
+    }
+}
