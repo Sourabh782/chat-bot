@@ -17,10 +17,15 @@ export class QuickActionComponent {
   @Output() messageEvent = new EventEmitter<string>();
   
   isHidden: boolean = false;
+  cardHidden: boolean = true;
 
   clicked = (str: string)=>{
     this.isHidden = true;
     this.messageEvent.emit(str);
+
+    if(str == ''){
+      this.cardHidden = false;
+    }
   }
 
 }
