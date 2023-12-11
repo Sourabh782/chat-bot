@@ -9,8 +9,8 @@
 
 <div class="card mt-4 w-[100%] h-auto flex overflow-x-scroll" [ngClass]="{'hidden': cardHidden}">
     
-    <div *ngFor="let card of courses" class="mx-1">
-        <app-carousel></app-carousel>
+    <div *ngFor="let course of courses" class="mx-1">
+        <app-carousel [courseName]="course"></app-carousel>
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent {
-  courses: Array<string> = ["python", "c++", "c", "javascript", "java", "react"];
+  @Input() courseName: string = "";
 
+  mes: string = "hello"
 }
