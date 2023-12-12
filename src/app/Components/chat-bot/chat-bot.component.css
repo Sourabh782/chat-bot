@@ -1,3 +1,16 @@
 ::-webkit-scrollbar{
     display: none;
 }
+
+.animated{
+    animation: turn 150ms linear;
+}
+
+@keyframes turn {
+    0% {
+        transform: rotate(-45deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
