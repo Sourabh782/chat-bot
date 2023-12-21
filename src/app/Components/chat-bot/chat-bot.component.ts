@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { UserMessageComponent } from '../user-message/user-message.component';
 import { RepliesComponent } from '../replies/replies.component';
 import { QuickActionComponent } from '../quick-action/quick-action.component';
@@ -28,6 +28,8 @@ export class ChatBotComponent {
 
   btnHidden: boolean = false;
 
+  loggedIn: boolean = false;
+
   toggleHidden = ()=>{
     this.btnHidden = !this.btnHidden;
   }
@@ -39,6 +41,9 @@ export class ChatBotComponent {
 
   messages: Array<Array<string>> = [];
   replies: Array<string> = [];
+
+  userName: string = "";
+  password: string = "";
 
 
   submitResponce = (str: string)=>{
@@ -61,6 +66,13 @@ export class ChatBotComponent {
       this.text = '';
       this.scrollToBottom();
     }
+  }
+
+  submitDetails = (userName : string, password: string)=>{
+    this.userName = userName;
+    this.password = password;
+    console.log("username : " + this.userName + " and password : " + this.password)
+    this.loggedIn = !this.loggedIn;
   }
 
   scrollToBottom(){

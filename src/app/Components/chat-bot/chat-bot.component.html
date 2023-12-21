@@ -24,29 +24,50 @@
               </div>
 
               <!-- Chat Bot body -->
-              <div class="px-6 pt-6 space-y-6 h-[74%] my-auto overflow-y-scroll flex flex-col">
-                <div class="flex justify-start flex-col">
-                  <p class="py-2 px-3 bg-blue-600 text-white rounded-xl max-w-[80%] text-sm">{{initialMessage}}</p>
-                  
-                  <app-quick-action [hidden]="quickActionHidden" (messageEvent)="receivedUserMessage($event)"></app-quick-action>
+              <div class="px-6 pt-6 space-y-6 h-[74%] min-h-[74%] my-auto overflow-y-scroll flex flex-col">
+                <div [hidden]="loggedIn" class="formArea">
+                  <h2 class="mb-4">Login</h2>
 
+
+                  <form class="w-[80%]" #f ngNativeValidate>
+
+                    <div class="mb-5 form-group" >
+                      <input type="text" id="UserName" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched}" minlength="5" maxlength="20">
+                    </div>
+
+                    <div class="mb-5">
+                      <input type="password" #password name="password" ngModel #Password="ngModel" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required minlength="5" maxlength="20" [ngClass]="{'is-invalid': Password.invalid && Password.touched}">
+                    </div>
+
+                    <button type="submit" class="btn btn-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="f.checkValidity() ? submitDetails(userName.value, password.value) : null">Submit</button>
+                  </form>
                 </div>
-                <div *ngFor="let message of messages; let i = index"  class="m-0">
-                  <app-user-message class="flex justify-end mb-4"  [message]="message[0]"></app-user-message>
-                  <app-replies class="flex justify-start" id="{{i}}" [message]="message[1]"></app-replies>
+
+                <div [hidden]="!loggedIn">
+                  <div class="flex justify-start flex-col">
+                    <p class="py-2 px-3 bg-blue-600 text-white rounded-xl max-w-[80%] text-sm">{{initialMessage}}</p>
+                    <app-quick-action [hidden]="quickActionHidden" (messageEvent)="receivedUserMessage($event)"></app-quick-action>
+                  </div>
+
+                  <div *ngFor="let message of messages; let i = index"  class="m-0">
+                    <app-user-message class="flex justify-end mt-4"  [message]="message[0]"></app-user-message>
+                    <app-replies class="flex justify-start mt-4" id="{{i}}" [message]="message[1]"></app-replies>
+                  </div>
+                  <div class="h-0 mt-2" #endOfChat></div>
                 </div>
-                <div class="h-0" #endOfChat></div>
               </div>
 
 
               <!-- Chat Bot input -->
-              <div class="flex self-end items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 h-[13%]">
+              <div [hidden]="!loggedIn">
+                <div class="flex self-end items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 h-[13%]" >
                   <input type="text" id="inputComp" class="w-full mx-2 rounded-full" required #inputComp [(ngModel)] = 'text' (keydown.enter)="submitResponce(inputComp.value)">
-                  <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-2.5 py-2.5 text-center dark:bg-blue-600dark:hover:bg-blue-700 dark:focus:ring-blue-800" ngClass="{'disabled': inputComp.value == ''}"  (click)="submitResponce(inputComp.value)">
-                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"fill="currentColor" viewBox="0 0 10 16">
-                      <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
-                    </svg>
-                  </button>
+                    <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-2.5 py-2.5 text-center dark:bg-blue-600dark:hover:bg-blue-700 dark:focus:ring-blue-800" ngClass="{'disabled': inputComp.value == ''}"  (click)="submitResponce(inputComp.value)">
+                      <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"fill="currentColor" viewBox="0 0 10 16">
+                        <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
+                      </svg>
+                    </button>
+                </div>
               </div>
           </div>
       </div>
