@@ -18,3 +18,9 @@
     color: red;
     border-color: red;
 }
+
+.active{
+    background-color: rgb(29, 108, 255);
+    color: white;
+    border: 1px solid rgb(26, 86, 220);
+}

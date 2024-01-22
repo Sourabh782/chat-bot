@@ -4,11 +4,13 @@ import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import { UserMessageComponent } from '../user-message/user-message.component';
 import { RepliesComponent } from '../replies/replies.component';
 import { QuickActionComponent } from '../quick-action/quick-action.component';
+import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-chat-bot',
   standalone: true,
-  imports: [CommonModule, FormsModule, UserMessageComponent, RepliesComponent, QuickActionComponent],
+  imports: [CommonModule, FormsModule, UserMessageComponent, RepliesComponent, QuickActionComponent, LoginComponent, SignupComponent],
   templateUrl: './chat-bot.component.html',
   styleUrl: './chat-bot.component.css'
 })
@@ -29,6 +31,18 @@ export class ChatBotComponent {
   btnHidden: boolean = false;
 
   loggedIn: boolean = false;
+
+  loginActive: boolean = false;
+  signupActive: boolean = true;
+
+  setLoginActive = ()=>{
+    this.loginActive = true;
+    this.signupActive = false;
+  }
+  setSignupActive = ()=>{
+    this.loginActive = false;
+    this.signupActive = true;
+  }
 
   toggleHidden = ()=>{
     this.btnHidden = !this.btnHidden;
@@ -72,6 +86,9 @@ export class ChatBotComponent {
     this.userName = userName;
     this.password = password;
     console.log("username : " + this.userName + " and password : " + this.password)
+  }
+  
+  loggedInCng = ()=>{
     this.loggedIn = !this.loggedIn;
   }
 

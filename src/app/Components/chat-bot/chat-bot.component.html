@@ -25,23 +25,18 @@
 
               <!-- Chat Bot body -->
               <div class="px-6 pt-6 space-y-6 h-[74%] min-h-[74%] my-auto overflow-y-scroll flex flex-col">
-                <div [hidden]="loggedIn" class="formArea">
-                  <h2 class="mb-4">Login</h2>
 
-
-                  <form class="w-[80%]" #f ngNativeValidate>
-
-                    <div class="mb-5 form-group" >
-                      <input type="text" id="UserName" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched}" minlength="5" maxlength="20">
-                    </div>
-
-                    <div class="mb-5">
-                      <input type="password" #password name="password" ngModel #Password="ngModel" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required minlength="5" maxlength="20" [ngClass]="{'is-invalid': Password.invalid && Password.touched}">
-                    </div>
-
-                    <button type="submit" class="btn btn-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="f.checkValidity() ? submitDetails(userName.value, password.value) : null">Submit</button>
-                  </form>
+                <div [hidden]="loggedIn" class="inline-flex rounded-md w-full shadow-sm" role="group">
+                  <button [hidden]="loggedIn" [ngClass]="signupActive ? 'active ring-2 ring-blue-600' : ''" (click)="setSignupActive()" type="button" class="px-4 py-2 w-1/2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg hover:bg-blue-600 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-500 focus:bg-blue-700 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                    Sign up
+                  </button>
+                  <button [hidden]="loggedIn" [ngClass]="loginActive ? 'active ring-2 ring-blue-600' : ''" (click)="setLoginActive()" type="button" class="px-4 py-2 w-1/2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-e-lg hover:bg-blue-600 hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-500 focus:bg-blue-700 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                    Log In
+                  </button>
                 </div>
+
+                <app-login [hidden]="loggedIn" [hidden]="!loginActive" (loggedInChange) = loggedInCng()></app-login>
+                <app-signup [hidden]="loggedIn" [hidden]="!signupActive" (loggedInChange) = loggedInCng()></app-signup>
 
                 <div [hidden]="!loggedIn">
                   <div class="flex justify-start flex-col">
