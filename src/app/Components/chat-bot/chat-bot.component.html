@@ -35,8 +35,8 @@
                   </button>
                 </div>
 
-                <app-login [hidden]="loggedIn" [hidden]="!loginActive" (loggedInChange) = loggedInCng()></app-login>
-                <app-signup [hidden]="loggedIn" [hidden]="!signupActive" (loggedInChange) = loggedInCng()></app-signup>
+                <app-login [hidden]="loggedIn" [hidden]="!loginActive" (loggedInChange) = loggedInCng($event)></app-login>
+                <app-signup [hidden]="loggedIn" [hidden]="!signupActive" (loggedInChange) = signupCng($event)></app-signup>
 
                 <div [hidden]="!loggedIn">
                   <div class="flex justify-start flex-col">
@@ -58,9 +58,13 @@
                 <div class="flex self-end items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600 h-[13%]" >
                   <input type="text" id="inputComp" class="w-full mx-2 rounded-full" required #inputComp [(ngModel)] = 'text' (keydown.enter)="submitResponce(inputComp.value)">
                     <button  type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-2.5 py-2.5 text-center dark:bg-blue-600dark:hover:bg-blue-700 dark:focus:ring-blue-800" ngClass="{'disabled': inputComp.value == ''}"  (click)="submitResponce(inputComp.value)">
-                      <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"fill="currentColor" viewBox="0 0 10 16">
+                      <!-- <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"fill="currentColor" viewBox="0 0 10 16">
                         <path d="M3.414 1A2 2 0 0 0 0 2.414v11.172A2 2 0 0 0 3.414 15L9 9.414a2 2 0 0 0 0-2.828L3.414 1Z"/>
+                      </svg> -->
+                      <svg class="w-6 h-6 sendBtn text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12 2c.4 0 .8.3 1 .6l7 18a1 1 0 0 1-1.4 1.3L13 19.5V13a1 1 0 1 0-2 0v6.5L5.4 22A1 1 0 0 1 4 20.6l7-18a1 1 0 0 1 1-.6Z" clip-rule="evenodd"/>
                       </svg>
+                      
                     </button>
                 </div>
               </div>

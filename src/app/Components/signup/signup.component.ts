@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
+import axios from 'axios';
 
 @Component({
   selector: 'app-signup',
@@ -11,12 +12,15 @@ import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 })
 
 export class SignupComponent {
-  @Output() loggedInChange = new EventEmitter<boolean>();
+  @Output() loggedInChange = new EventEmitter<string>();
 
-  name: string = "";
-  userName: string = "";
-  password: string = "";
   loggedIn: boolean = false;
+
+  obj = {
+    name: '',
+    username: '',
+    password: ''
+  }
 
   passwordHidden: boolean = true;
 
@@ -35,15 +39,16 @@ export class SignupComponent {
     }
   }
 
-
-  submitDetails = (name: string, userName : string, password: string)=>{
-    this.name = name;
-    this.userName = userName;
-    this.password = password;
-    console.log("username : " + this.userName + " and password : " + this.password)
+  submitDetails = async (name: string, userName : string, password: string)=>{
     this.loggedIn = !this.loggedIn;
 
-    this.loggedInChange.emit();
+    this.obj = await axios.post('http://localhost:8000/api/user/',{
+      'name': name, 'username': userName, 'password': password
+    }).then(res=>{
+      return res.data
+    })
+
+    this.loggedInChange.emit(this.obj.name);
   } 
 }
 

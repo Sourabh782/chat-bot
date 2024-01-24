@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
+import axios from 'axios'
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,23 @@ import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 })
 
 export class LoginComponent {
-  @Output() loggedInChange = new EventEmitter<boolean>();
+  @Output() loggedInChange = new EventEmitter<string>();
   
-  userName: string = "";
-  password: string = "";
   loggedIn: boolean = false;
+  
+  obj = {
+    name: '', 
+    username : '',
+    password: ''
+  };
+
+  incorrectPassword: boolean = false;
+  incorrectUserName: boolean = false;
 
   passwordHidden: boolean = true;
 
   changePasswordVisibility = ()=>{
+    console.log()
     this.passwordHidden = !this.passwordHidden;
 
     if(this.passwordHidden){
@@ -34,12 +43,30 @@ export class LoginComponent {
     }
   }
 
-  submitDetails = (userName : string, password: string)=>{
-    this.userName = userName;
-    this.password = password;
-    console.log("username : " + this.userName + " and password : " + this.password)
-    this.loggedIn = !this.loggedIn;
+  submitDetails = async (userName : string, password: string)=>{
+    
+    this.incorrectUserName = false;
 
-    this.loggedInChange.emit();
+    try {
+      this.obj = await axios.get(`http://localhost:8000/api/user/${userName}`
+      ).then(res=>{
+        console.log(res.data);
+        return res.data;
+      })
+
+      console.log(this.obj);
+
+
+      if(this.obj.password === password){
+        this.loggedIn = !this.loggedIn;
+        this.loggedInChange.emit(this.obj.name);
+      } else {
+        this.incorrectPassword = true;
+      }
+    } catch (error) {
+      this.incorrectUserName = true;
+      
+    }
+  
   }
 }

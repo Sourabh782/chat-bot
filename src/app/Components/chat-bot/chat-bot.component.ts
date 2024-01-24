@@ -14,6 +14,7 @@ import { SignupComponent } from '../signup/signup.component';
   templateUrl: './chat-bot.component.html',
   styleUrl: './chat-bot.component.css'
 })
+
 export class ChatBotComponent {
 
   @ViewChild('endOfChat')
@@ -21,6 +22,7 @@ export class ChatBotComponent {
 
   text: string = "";
   id: number = 0;
+  name1: string = "";
 
   @Input() receivedUserMessage(str: string){
     this.submitResponce(str);
@@ -48,10 +50,7 @@ export class ChatBotComponent {
     this.btnHidden = !this.btnHidden;
   }
 
-  initialMessage: string = `Hey! How can we help you? 😄
-    Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
-    We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
-    Cheers! `
+  initialMessage: string = ""
 
   messages: Array<Array<string>> = [];
   replies: Array<string> = [];
@@ -61,7 +60,7 @@ export class ChatBotComponent {
 
 
   submitResponce = (str: string)=>{
-    console.log(str)
+    
     this.quickActionHidden = true;
     
     let msg: Array<string> = [];
@@ -88,8 +87,27 @@ export class ChatBotComponent {
     console.log("username : " + this.userName + " and password : " + this.password)
   }
   
-  loggedInCng = ()=>{
+  loggedInCng = (name: string)=>{
+    this.name1 = name;
+
+    this.initialMessage = `Hey ${name}!! How can we help you? 😄
+    Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
+    We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
+    Cheers! `
+
     this.loggedIn = !this.loggedIn;
+  }
+  
+  signupCng = (name: string)=>{
+    this.name1 = name;
+
+    this.initialMessage = `Hey ${name}!! How can we help you? 😄
+    Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
+    We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
+    Cheers! `
+
+    this.loggedIn = !this.loggedIn;
+
   }
 
   scrollToBottom(){

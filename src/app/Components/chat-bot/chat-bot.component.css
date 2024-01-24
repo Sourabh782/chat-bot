@@ -24,3 +24,7 @@
     color: white;
     border: 1px solid rgb(26, 86, 220);
 }
+
+.sendBtn{
+    transform: rotateZ(90deg);
+}

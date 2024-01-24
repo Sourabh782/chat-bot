@@ -3,14 +3,15 @@
     <form class="w-[90%]" #f ngNativeValidate>
 
       <div class="mb-5 form-group" >
-        <input type="text" id="UserName" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched}" minlength="5" maxlength="20">
+        <input type="text" id="UserName" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched || incorrectUserName}" minlength="5" maxlength="20">
+        <span class="text-sm text-red-600" [ngClass]="incorrectUserName ? '' : 'hidden'"> User doesnot exixt</span>
       </div>
 
       <div class="mb-5">
         <div class="flex">
-            <input type="password" #password name="password" ngModel #Password="ngModel" id="password" id="passwordL" class="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required minlength="5" maxlength="20" [ngClass]="{'is-invalid': Password.invalid && Password.touched}">
+            <input type="password" #password name="password" ngModel #Password="ngModel" id="password" id="passwordL" class="rounded-none rounded-s-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required minlength="5" maxlength="20" [ngClass]="{'is-invalid': Password.invalid && Password.touched || incorrectPassword}">
 
-            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:cursor-pointer" (click)="changePasswordVisibility()">
+            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-s-0 border-gray-300 rounded-e-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:cursor-pointer" (click)="changePasswordVisibility()" [ngClass]="{'is-invalid' : incorrectPassword}">
                <!-- eye open -->
                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14" id="open">
                 <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -25,6 +26,7 @@
               </svg>
             </span>
           </div>
+          <span class="text-sm text-red-600" [ngClass]="incorrectPassword ? '' : 'hidden'">Incorrect Password</span>
       </div>
 
       <button type="submit" class="btn btn-sm text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" (click)="f.checkValidity() ? submitDetails(userName.value, password.value) : null">Submit</button>

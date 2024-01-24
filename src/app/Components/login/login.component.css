@@ -1,3 +1,8 @@
 .hidden{
     display: none;
 }
+
+.is-invalid{
+    /* border-color: red; */
+    border: 1px solid red;
+}
