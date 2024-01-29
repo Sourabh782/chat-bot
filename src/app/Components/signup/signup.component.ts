@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import axios from 'axios';
 
 @Component({
@@ -15,12 +15,7 @@ export class SignupComponent {
   @Output() loggedInChange = new EventEmitter<string>();
 
   loggedIn: boolean = false;
-
-  obj = {
-    name: '',
-    username: '',
-    password: ''
-  }
+  userExist: boolean = false;
 
   passwordHidden: boolean = true;
 
@@ -42,13 +37,26 @@ export class SignupComponent {
   submitDetails = async (name: string, userName : string, password: string)=>{
     this.loggedIn = !this.loggedIn;
 
-    this.obj = await axios.post('http://localhost:8000/api/user/',{
-      'name': name, 'username': userName, 'password': password
-    }).then(res=>{
-      return res.data
-    })
+    try{
+      await axios.get(`http://localhost:8000/api/user/${userName}`)
+      this.userExist = true;
 
-    this.loggedInChange.emit(this.obj.name);
+      setTimeout(() => {
+        this.userExist = false
+      }, 2500);
+      
+    } catch (e){
+      await axios.post('http://localhost:8000/api/user/',{
+        'name': name, 'username': userName, 'password': password
+      })
+      
+      await axios.post('http://localhost:8000/api/message/',{
+        'username': userName, 'sent': [], 'replies': []
+      })
+  
+      this.loggedInChange.emit(userName);
+    }
+
   } 
 }
 

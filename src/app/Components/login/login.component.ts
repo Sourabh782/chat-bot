@@ -48,23 +48,19 @@ export class LoginComponent {
     this.incorrectUserName = false;
 
     try {
-      this.obj = await axios.get(`http://localhost:8000/api/user/${userName}`
-      ).then(res=>{
-        console.log(res.data);
-        return res.data;
-      })
-
-
-      if(this.obj.password === password){
-        this.loggedIn = !this.loggedIn;
-        this.loggedInChange.emit(this.obj.name);
-      } else {
-        this.incorrectPassword = true;
+      if(await axios.get(`http://localhost:8000/api/user/${userName}`)){
+        if(await axios.get(`http://localhost:8000/api/user/${userName}/${password}`)){
+          this.loggedIn = !this.loggedIn;
+          this.loggedInChange.emit(userName);
+        } else{
+          this.incorrectPassword = true;
+        }
+      } else{
+        this.incorrectUserName = true;
       }
-    } catch (error) { 
-      this.incorrectUserName = true;
-
+    } catch (e) { 
+      console.log(e);
     }
-  
+
   }
 }

@@ -6,5 +6,11 @@ class User(BaseModel):
     password: str
     
 class Item(BaseModel):
-    userName: str
-    data: list
+    username: str
+    sent: list
+    replies: list
+    
+class Update(BaseModel):
+    username: str
+    listName: str
+    data: str

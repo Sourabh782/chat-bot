@@ -1,7 +1,10 @@
 from fastapi import FastAPI, HTTPException
-from model import User, Item
+from model import User , Item, Update
 from database import (
-    fetch_one_user, create_user, store_msg
+    fetch_one_user, create_user, fetch_one_user_pass
+)
+from database_msg import (
+    create_messages, fetch_one_message, append_string
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -30,6 +33,13 @@ async def get_user(username):
         return response
     raise HTTPException(404, f"There is no user with username {username}")
 
+@app.get("/api/user/{username}/{password}", response_model=User)
+async def get_user(username, password):
+    response = await fetch_one_user_pass(username, password)
+    if response:
+        return response
+    raise HTTPException(404, f"check credentials")
+
 @app.post("/api/user/", response_model=User)
 async def create_new_user(user: User):
     response = await create_user(user.model_dump());
@@ -37,10 +47,23 @@ async def create_new_user(user: User):
         return response
     raise HTTPException(400, "Something went wrong")
 
-@app.post("/store_array")
-async def store_messages(msg: Item):
-    response = await store_msg(msg.model_dump());
+@app.get("/api/message/{username}", response_model=Item)
+async def get_message(username):
+    response = await fetch_one_message(username)
     if response:
         return response
-    else:
-        raise HTTPException(status_code=500, detail="Error storing array")
+    raise HTTPException(404, f"There is no user with username {username}")
+
+@app.post("/api/message/", response_model=Item)
+async def create_new_message(msg: Item):
+    response = await create_messages(msg.model_dump());
+    if response:
+        return response
+    raise HTTPException(400, "Something went wrong")
+
+@app.get("/api/message/append_string{username}/{listName}/{data}", response_model=Update)
+async def append(username, listName, data):
+    response = await append_string(username, listName, data)
+    if response:
+        return response
+    raise HTTPException(404, f"there is no user with username")

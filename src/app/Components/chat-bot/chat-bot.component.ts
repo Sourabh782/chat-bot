@@ -6,6 +6,7 @@ import { RepliesComponent } from '../replies/replies.component';
 import { QuickActionComponent } from '../quick-action/quick-action.component';
 import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
+import axios from 'axios';
 
 @Component({
   selector: 'app-chat-bot',
@@ -27,6 +28,12 @@ export class ChatBotComponent {
   @Input() receivedUserMessage(str: string){
     this.submitResponce(str);
   }
+
+  obj = {
+    username: '', 
+    sent : [],
+    replies: []
+  };
 
   quickActionHidden: boolean = false;
 
@@ -77,17 +84,28 @@ export class ChatBotComponent {
       this.text = '';
       this.scrollToBottom();
     }
+
   }
 
   
-  loggedInCng = (name: string)=>{
-    this.name1 = name;
-
-    this.initialMessage = `Hey ${name}!! How can we help you? 😄
+  loggedInCng = async ( username: string )=>{
+    
+    this.initialMessage = `Hey ${username}!! How can we help you? 😄
     Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
     We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
     Cheers! `
-
+    
+    const data = await axios.get(`http://localhost:8000/api/message/${username}`).then(res=>res.data)
+    
+    for(let i=0; i < data.replies.length; i++){
+      this.quickActionHidden = true
+      let msg: Array<string> = [];
+      msg.push(data.sent[i]);
+      msg.push(data.replies[i]);
+      this.messages.push(msg);
+    }
+    
+    this.scrollToBottom()
     this.loggedIn = !this.loggedIn;
   }
 
