@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import axios from 'axios'
 
 @Component({
@@ -54,8 +54,6 @@ export class LoginComponent {
         return res.data;
       })
 
-      console.log(this.obj);
-
 
       if(this.obj.password === password){
         this.loggedIn = !this.loggedIn;
@@ -63,9 +61,9 @@ export class LoginComponent {
       } else {
         this.incorrectPassword = true;
       }
-    } catch (error) {
+    } catch (error) { 
       this.incorrectUserName = true;
-      
+
     }
   
   }

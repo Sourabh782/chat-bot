@@ -55,8 +55,6 @@ export class ChatBotComponent {
   messages: Array<Array<string>> = [];
   replies: Array<string> = [];
 
-  userName: string = "";
-  password: string = "";
 
 
   submitResponce = (str: string)=>{
@@ -81,11 +79,6 @@ export class ChatBotComponent {
     }
   }
 
-  submitDetails = (userName : string, password: string)=>{
-    this.userName = userName;
-    this.password = password;
-    console.log("username : " + this.userName + " and password : " + this.password)
-  }
   
   loggedInCng = (name: string)=>{
     this.name1 = name;
@@ -96,18 +89,6 @@ export class ChatBotComponent {
     Cheers! `
 
     this.loggedIn = !this.loggedIn;
-  }
-  
-  signupCng = (name: string)=>{
-    this.name1 = name;
-
-    this.initialMessage = `Hey ${name}!! How can we help you? 😄
-    Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
-    We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
-    Cheers! `
-
-    this.loggedIn = !this.loggedIn;
-
   }
 
   scrollToBottom(){

@@ -5,3 +5,6 @@ class User(BaseModel):
     username: str
     password: str
     
+class Item(BaseModel):
+    userName: str
+    data: list

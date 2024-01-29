@@ -3,7 +3,7 @@
     <form class="w-[90%]" #f ngNativeValidate>
 
       <div class="mb-5 form-group" >
-        <input type="text" id="UserName" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched || incorrectUserName}" minlength="5" maxlength="20">
+        <input type="text" id="UserNameL" name="userName" ngModel #userName #UserName='ngModel' required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="UserName" [ngClass]="{'is-invalid': UserName.invalid && UserName.touched || incorrectUserName}" minlength="5" maxlength="20">
         <span class="text-sm text-red-600" [ngClass]="incorrectUserName ? '' : 'hidden'"> User doesnot exixt</span>
       </div>
 
