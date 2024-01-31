@@ -44,6 +44,8 @@ export class ChatBotComponent {
   loginActive: boolean = false;
   signupActive: boolean = true;
 
+
+
   setLoginActive = ()=>{
     this.loginActive = true;
     this.signupActive = false;
@@ -105,8 +107,10 @@ export class ChatBotComponent {
       this.messages.push(msg);
     }
     
-    this.scrollToBottom()
-    this.loggedIn = !this.loggedIn;
+    setTimeout(() => {
+      this.loggedIn = !this.loggedIn;
+      this.scrollToBottom()
+    }, 550);
   }
 
   scrollToBottom(){

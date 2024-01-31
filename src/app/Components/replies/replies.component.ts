@@ -12,7 +12,6 @@ export class RepliesComponent {
 
   @Input() message:string = "";
 
-
   isHidden: boolean = true;
 
   setHidden = ()=>{
