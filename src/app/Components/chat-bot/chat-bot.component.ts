@@ -29,11 +29,7 @@ export class ChatBotComponent {
     this.submitResponce(str);
   }
 
-  obj = {
-    username: '', 
-    sent : [],
-    replies: []
-  };
+  username: string = ""
 
   quickActionHidden: boolean = false;
 
@@ -66,7 +62,7 @@ export class ChatBotComponent {
 
 
 
-  submitResponce = (str: string)=>{
+  submitResponce = async (str: string)=>{
     
     this.quickActionHidden = true;
     
@@ -85,6 +81,10 @@ export class ChatBotComponent {
       this.id++;
       this.text = '';
       this.scrollToBottom();
+
+      await axios.put(`http://localhost:8000/api/message/append/${this.username}`,{
+        data: [msg[0], msg[1]]
+      })
     }
 
   }
@@ -96,14 +96,17 @@ export class ChatBotComponent {
     Until one of our developers responds please check out our Helpdesk for more information regarding your questions. 
     We are a team based in Europe so it can take up to 24 hours until we get back to you depending on your timezone. 
     Cheers! `
+
+    this.username = username;
     
     const data = await axios.get(`http://localhost:8000/api/message/${username}`).then(res=>res.data)
+    console.log(data)
     
-    for(let i=0; i < data.replies.length; i++){
+    for(let i=0; i < data.sent.length; i++){
       this.quickActionHidden = true
       let msg: Array<string> = [];
-      msg.push(data.sent[i]);
-      msg.push(data.replies[i]);
+      msg.push(data.sent[i][0]);
+      msg.push(data.sent[i][1]);
       this.messages.push(msg);
     }
     

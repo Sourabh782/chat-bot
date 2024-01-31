@@ -51,7 +51,7 @@ export class SignupComponent {
       })
       
       await axios.post('http://localhost:8000/api/message/',{
-        'username': userName, 'sent': [], 'replies': []
+        'username': userName, 'sent': []
       })
   
       this.loggedInChange.emit(userName);

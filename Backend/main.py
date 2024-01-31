@@ -61,9 +61,9 @@ async def create_new_message(msg: Item):
         return response
     raise HTTPException(400, "Something went wrong")
 
-@app.get("/api/message/append_string{username}/{listName}/{data}", response_model=Update)
-async def append(username, listName, data):
-    response = await append_string(username, listName, data)
+@app.put("/api/message/append/{username}", response_model=Item)
+async def append(username, data:Update):
+    response = await append_string(username, data)
     if response:
         return response
     raise HTTPException(404, f"there is no user with username")

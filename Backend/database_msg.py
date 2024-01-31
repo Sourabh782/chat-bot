@@ -18,23 +18,15 @@ async def create_messages(message: Item):
     return document;
 
 
-async def append_string(username, listName, data):
+async def append_string(username, data1: Update):
     
     existing_document = await collection.find_one({"username": username})
-
+    
     if existing_document:
-        if listName in existing_document:
-            
-            existing_document.listName.append(data)
-
-            updated_document = collection.find_one_and_update(
-                {"username": username},
-                {"$set": {listName: existing_document[listName]}},
-                return_document=ReturnDocument.AFTER
-            )
-            
-            return updated_document
-        else:
-            return {"list not exist"}
-    else:
-        return {"user not exist"}
+        # Append the new array to the end of the existing array
+        existing_document["sent"].append(data1.data)
+        
+        # Update the document in MongoDB
+        await collection.update_one({"username": username}, {"$set": {"sent": existing_document["sent"]}})
+        
+        return existing_document
